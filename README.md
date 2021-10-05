@@ -2,7 +2,7 @@
 Phần mềm terra giám sát và điều khiển hệ thống nhà kính, hay bể terraium
 Chuỗi phần cứng terra_tech
 
-<div styles="display: flex; justify-content: space-between">
+<div styles="display: flex; justify-contents: space-between">
   <img src="https://user-images.githubusercontent.com/90817736/135967988-54ebc734-fb37-4748-8dea-042bdbd5a8c3.png" width="400"/>
   <img src="https://user-images.githubusercontent.com/90817736/135968000-78c55598-1397-403b-8e84-65f7a0882aa2.png" width="400"/>
 </div>
