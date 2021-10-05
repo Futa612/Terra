@@ -1,0 +1,4 @@
+-doc nhiet do va do am ghi len man hinh lcd
+-tu dong bat quat khi nhiet do qua 30 do C hoac do am vuot qua 50%
+- tu dong bat may phun suong khi do am duoi 40%
++ chua bo sung cam bien anh sang
