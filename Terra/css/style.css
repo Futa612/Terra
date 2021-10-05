@@ -180,6 +180,26 @@
     .rec p {
         padding-left: 15px;
     }
+    .delete {
+        position: relative;
+        height: 40px;
+        width: 80px;
+        padding-right: 20px;
+        font-size: 14px;
+    }
+    .delete button{
+        position: relative;
+        height: 100%;
+        width: 100%;
+        color: #FFF;
+        background-color: rgb(212, 31, 31);
+        border-radius: 10px;
+        font-size: 14px;
+    }
+    .delete button:hover{
+        transform: scale(1.1);
+        transition: 0.5s;
+    }
     .switch-padding {
         position: relative;
         height: 45px;
@@ -238,7 +258,7 @@
     .detail-content {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         font-size: 20px;
     }
     .detail-content p{
@@ -297,7 +317,7 @@
     display: block; 
 }
 .line {
-    height: 20%;
+    height: 10%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -308,7 +328,7 @@
 }
 .line input {
     width: calc(100% - 5px);
-    height: 30px;
+    height: 35px;
     font-size: 14px;
 }
 .line select {
@@ -334,8 +354,8 @@
     color: #FFF;
 }
 .GPIO_submit button:hover {
-    background-color: aliceblue;
-    transition: 1s;
+    transform: scale(1.1);
+    transition: 0.5s;
 }
 /*MOBLE with width < 376px IPHONE X*/
 @media only screen and (max-width: 376px) {
