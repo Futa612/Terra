@@ -40,9 +40,9 @@ int dem1 = 2;
 int dem2 = 2;
 int dem3 = 2;
 int dem4 = 2;
-
+sdfdafdf
 int sopin, trangthai,sopin_cu, trangthai_cu;
-
+sdfsdfsdf
 String old_payload;
 
 // Set web server port number to 80
