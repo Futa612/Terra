@@ -1,11 +1,12 @@
 <?php
-    $servername = "localhost";
+    require_once("config.php");
+    $servername = HOSTNAME;
     // Your Database name
-    $dbname = "rui_esp";
+    $dbname = DATABASE;
     // Your Database user
-    $username = "root";
+    $username = USERNAME;
     // Your Database user password
-    $password = "";
+    $password = PASSWORD;
 
     function createOutput($name, $board, $gpio, $state) {
         global $servername, $username, $password, $dbname;
