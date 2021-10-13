@@ -9,27 +9,25 @@
   copies or substantial portions of the Software.
 -->
 <?php
-    include_once('esp-database.php');
+include_once('esp-database.php');
 
-    $result = getAllOutputs();
-    $html_buttons = null;
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
+$result = getAllOutputs();
+$html_buttons = null;
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
 
-            if ($row["state"] == "1"){
-                $button_checked = "checked";
-            }
+        if ($row["state"] == "1") {
+            $button_checked = "checked";
+        } else {
+            $button_checked = "";
+        }
 
-            else {
-                $button_checked = "";
-            }
-
-            $html_buttons .= '<div class="rec-padding">
+        $html_buttons .= '<div class="rec-padding">
             <div class="rec">
                 <div class="content">
                     <p id="name">' . $row["name"] . '</p>
                     <div class="detail-content">
-                        <p>' . 'Board'. $row["board"] . '</p>
+                        <p>' . 'Board' . $row["board"] . '</p>
                         <p>GPIO' . $row["gpio"] . '</p>
                         </div>
                     </div>
@@ -42,12 +40,12 @@
                 </div>
             </div>';
 
-            $html_delete .= '<div class="rec-padding">
+        $html_delete .= '<div class="rec-padding">
             <div class="rec">
                 <div class="content">
                     <p id="name">' . $row["name"] . '</p>
                     <div class="detail-content">
-                        <p>Board'. $row["board"] . '</p>
+                        <p>Board' . $row["board"] . '</p>
                         <br>
                         <p>GPIO' . $row["gpio"] . '</p>
                         </div>
@@ -59,84 +57,28 @@
                     </div>
                 </div>
             </div>';
-        }
     }
+}
 
-    $result2 = getAllBoards();
-    $html_boards = null;
-    if ($result2) {
-        $html_boards .= '<h3>Boards</h3>';
-        while ($row = $result2->fetch_assoc()) {
-            $row_reading_time = $row["last_request"];
-            // Uncomment to set timezone to - 1 hour (you can change 1 to any number)
-            //$row_reading_time = date("Y-m-d H:i:s", strtotime("$row_reading_time - 1 hours"));
+$result2 = getAllBoards();
+$html_boards = null;
+if ($result2) {
+    $html_boards .= '<h3>Boards</h3>';
+    while ($row = $result2->fetch_assoc()) {
+        $row_reading_time = $row["last_request"];
+        // Uncomment to set timezone to - 1 hour (you can change 1 to any number)
+        //$row_reading_time = date("Y-m-d H:i:s", strtotime("$row_reading_time - 1 hours"));
 
-            // Uncomment to set timezone to + 4 hours (you can change 4 to any number)
-            //$row_reading_time = date("Y-m-d H:i:s", strtotime("$row_reading_time + 7 hours"));
-            $html_boards .= '<p><strong>Board ' . $row["board"] . '</strong> - Yêu cầu lần cuối: '. $row_reading_time . '</p>';
-        }
+        // Uncomment to set timezone to + 4 hours (you can change 4 to any number)
+        //$row_reading_time = date("Y-m-d H:i:s", strtotime("$row_reading_time + 7 hours"));
+        $html_boards .= '<p><strong>Board ' . $row["board"] . '</strong> - Yêu cầu lần cuối: ' . $row_reading_time . '</p>';
     }
-?>
-
-<?php
-    // $humid = '94';
-    // $temp = '25';
-    // $lux = '56';
-
-    require_once("config.php");
-			$conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
-			if ($conn->connect_error) {
-				die("Connection failed: " . $conn->connect_error);
-			}
-			$sql = "SELECT `temp`, `humid`, `lux` FROM `sensor` WHERE 1";
-            if ($result = $conn->query($sql)) {
-				while ($row = $result->fetch_assoc()) {
-					$temp = $row["temp"];
-					$humid = $row["humid"];
-					$lux = $row["lux"];
-                }
-
-    $html_sensor = null;
-    $html_sensor .= '
-    <div class="sensor">
-
-                <div class="square">
-                    <div id="pure_humid" class="c100 p0">
-                        <span id="humid">'.$humid.'%</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="square">
-                    <div id="pure_temp" class="c100 p0 orange">
-                        <span id="temp">'.$temp.'°C</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="square">
-                    <div id="pure_lux" class="c100 p0 yellow">
-                        <span id="lux">'.$lux.'lux</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-    ';
-            }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -145,7 +87,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/pure.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+
 <body>
     <div class="header">
         <div class="user-logo">
@@ -163,32 +107,63 @@
     <div class="main" id="home_page">
         <div class="sensor-padding">
 
-            <!-- echo $html_sensor -->
-            <?php echo $html_sensor; ?>
-            
+            <div class="sensor">
+
+                <div class="square">
+                    <div id="pure_humid" class="c100 p0">
+                        <span id="humid">0%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div id="pure_temp" class="c100 p0 orange">
+                        <span id="temp">0°C</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div id="pure_lux" class="c100 p0 yellow">
+                        <span id="lux">0lux</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
         <div class="gpio">
-            
-        <?php echo $html_buttons; ?>
+
+            <?php echo $html_buttons; ?>
 
         </div>
     </div>
 
     <div class="main2" id="notification_page">
-        
+
         <div class="thongbao">Thông báo cập nhật phiên bản beta: Terra_v101</div>
         <?php echo $html_boards; ?>
-        
+
     </div>
 
     <div class="main3" id="times_page">
-        
+
         <div class="thongbao">Tính năng này chưa ra mắt trên phiên bản beta</div>
-        
+
     </div>
 
     <div class="main4" id="users_page">
-        
+
         <div class="user_info">
             <h3>Thông tin người dùng</h3>
             <label for="">Tên: Nguyễn Phú Đạt</label>
@@ -197,7 +172,7 @@
         <div class="create_gpio">
             <form onsubmit="return createOutput();" class="mod_gpio">
                 <h3>Thêm thiết bị</h3>
-                
+
                 <div class="line">
                     <label for="outputName">Tên:</label>
                     <input type="text" name="name" id="outputName">
@@ -210,9 +185,9 @@
 
                 <div class="line">
                     <label for="outputGpio">Số thứ tự GPIO:</label>
-                 <input type="number" name="gpio" min="0" id="outputGpio">
+                    <input type="number" name="gpio" min="0" id="outputGpio">
                 </div><br>
-                
+
                 <div class="line">
                     <label for="outputState">Trạng thái ban đầu của GPIO:</label>
                     <select id="outputState" name="state">
@@ -220,13 +195,13 @@
                         <option value="1">1 = ON</option>
                     </select>
                 </div><br>
-                
+
                 <div class="GPIO_submit">
                     <button type="submit" value="Create Output">Tạo GPIO</button>
                 </div>
 
                 <p><strong>Chú ý:</strong> Ở một số thiết bị cần phải refresh lại trang để tải lại trạng thái của các thiết bị.</p>
-                
+
             </form>
 
         </div>
@@ -238,7 +213,7 @@
         <div class="user_info">
             <h3>Terra mode</h3>
             <label for="">Phiên bản: beta_101</label>
-        </div> 
+        </div>
 
         <br>
 
@@ -267,10 +242,10 @@
 
         <br>
 
-        
-        
+
+
     </div>
-    
+
     <div class="footer_nav">
         <div class="nav_icon" id="home" onclick="home_nav()">
             <i class="fas fa-home"></i>
@@ -294,26 +269,8 @@
     </div>
 </body>
 <script>
-    /*Update sensor*/
-    setInterval(function() {
-        var humid = document.getElementById("humid").textContent;
-        var humid_spilt = humid.split("%");
-        var text_humid = "c100 p" + humid_spilt[0];
-        document.getElementById("pure_humid").className = text_humid;
-        
-        var temp = document.getElementById("temp").textContent;
-        var temp_spilt = temp.split("°C");
-        var text_temp = "c100 p" + temp_spilt[0] + " orange";
-        document.getElementById("pure_temp").className = text_temp;
-
-        var lux = document.getElementById("lux").textContent;
-        var lux_spilt = lux.split("lux");
-        var text_lux = "c100 p" + lux_spilt[0] + " yellow";
-        document.getElementById("pure_lux").className = text_lux;
-    },200);
-
     function home_nav() {
-        document.getElementById("home_page").style.display = "block";  
+        document.getElementById("home_page").style.display = "block";
         document.getElementById("notification_page").style.display = "none";
         document.getElementById("times_page").style.display = "none";
         document.getElementById("users_page").style.display = "none";
@@ -321,7 +278,7 @@
     }
 
     function notification_nav() {
-        document.getElementById("home_page").style.display = "none";  
+        document.getElementById("home_page").style.display = "none";
         document.getElementById("notification_page").style.display = "block";
         document.getElementById("times_page").style.display = "none";
         document.getElementById("users_page").style.display = "none";
@@ -329,7 +286,7 @@
     }
 
     function times_nav() {
-        document.getElementById("home_page").style.display = "none";  
+        document.getElementById("home_page").style.display = "none";
         document.getElementById("notification_page").style.display = "none";
         document.getElementById("times_page").style.display = "block";
         document.getElementById("users_page").style.display = "none";
@@ -337,64 +294,88 @@
     }
 
     function users_nav() {
-        document.getElementById("home_page").style.display = "none";  
+        document.getElementById("home_page").style.display = "none";
         document.getElementById("notification_page").style.display = "none";
         document.getElementById("times_page").style.display = "none";
         document.getElementById("users_page").style.display = "block";
         document.getElementById("terra_page").style.display = "none";
     }
-    
+
     function terra_nav() {
-        document.getElementById("home_page").style.display = "none";  
+        document.getElementById("home_page").style.display = "none";
         document.getElementById("notification_page").style.display = "none";
         document.getElementById("times_page").style.display = "none";
         document.getElementById("users_page").style.display = "none";
         document.getElementById("terra_page").style.display = "block";
     }
-    
 </script>
 <script>
-        function updateOutput(element) {
+    function updateOutput(element) {
+        var xhr = new XMLHttpRequest();
+        if (element.checked) {
+            xhr.open("GET", "esp-outputs-action.php?action=output_update&id=" + element.id + "&state=1", true);
+        } else {
+            xhr.open("GET", "esp-outputs-action.php?action=output_update&id=" + element.id + "&state=0", true);
+        }
+        xhr.send();
+    }
+
+    function deleteOutput(element) {
+        var result = confirm("Want to delete this output?");
+        if (result) {
             var xhr = new XMLHttpRequest();
-            if(element.checked){
-                xhr.open("GET", "esp-outputs-action.php?action=output_update&id="+element.id+"&state=1", true);
-            }
-            else {
-                xhr.open("GET", "esp-outputs-action.php?action=output_update&id="+element.id+"&state=0", true);
-            }
+            xhr.open("GET", "esp-outputs-action.php?action=output_delete&id=" + element.id, true);
             xhr.send();
+            alert("Output deleted");
+            setTimeout(function() {
+                window.location.reload();
+            });
         }
+    }
 
-        function deleteOutput(element) {
-            var result = confirm("Want to delete this output?");
-            if (result) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "esp-outputs-action.php?action=output_delete&id="+element.id, true);
-                xhr.send();
-                alert("Output deleted");
-                setTimeout(function(){ window.location.reload(); });
+    function createOutput(element) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "esp-outputs-action.php", true);
+
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert("Output created");
+                setTimeout(function() {
+                    window.location.reload();
+                });
             }
         }
+        var outputName = document.getElementById("outputName").value;
+        var outputBoard = document.getElementById("outputBoard").value;
+        var outputGpio = document.getElementById("outputGpio").value;
+        var outputState = document.getElementById("outputState").value;
+        var httpRequestData = "action=output_create&name=" + outputName + "&board=" + outputBoard + "&gpio=" + outputGpio + "&state=" + outputState;
+        xhr.send(httpRequestData);
+    }
+</script>
 
-        function createOutput(element) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "esp-outputs-action.php", true);
 
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+<script>
+    $(document).ready(function() { /// Wait till page is loaded
+        setInterval(timingLoad, 3000);
 
-            xhr.onreadystatechange = function() {
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    alert("Output created");
-                    setTimeout(function(){ window.location.reload(); });
-                }
-            }
-            var outputName = document.getElementById("outputName").value;
-            var outputBoard = document.getElementById("outputBoard").value;
-            var outputGpio = document.getElementById("outputGpio").value;
-            var outputState = document.getElementById("outputState").value;
-            var httpRequestData = "action=output_create&name="+outputName+"&board="+outputBoard+"&gpio="+outputGpio+"&state="+outputState;
-            xhr.send(httpRequestData);
+        function timingLoad() {
+            $('#pure_temp').load('temp.php #pure_temp', function() {
+                /// can add another function here
+            });
+
+            $('#pure_humid').load('humid.php #pure_humid', function() {
+                /// can add another function here
+            });
+
+            $('#pure_lux').load('lux.php #pure_lux', function() {
+                /// can add another function here
+            });
         }
-    </script>
+    }); //// End of Wait till page is loaded
+</script>
+
 
 </html>

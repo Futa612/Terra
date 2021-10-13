@@ -6,7 +6,7 @@
         exit();
     }
     echo "Connection Success!<br><br>";
-
+    
     $temp = $_GET["temp"];
     $humid = $_GET["humid"];
     $lux = $_GET["lux"];
