@@ -78,6 +78,63 @@
     }
 ?>
 
+<?php
+    // $humid = '94';
+    // $temp = '25';
+    // $lux = '56';
+
+    require_once("config.php");
+			$conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+			$sql = "SELECT `temp`, `humid`, `lux` FROM `sensor` WHERE 1";
+            if ($result = $conn->query($sql)) {
+				while ($row = $result->fetch_assoc()) {
+					$temp = $row["temp"];
+					$humid = $row["humid"];
+					$lux = $row["lux"];
+                }
+
+    $html_sensor = null;
+    $html_sensor .= '
+    <div class="sensor">
+
+                <div class="square">
+                    <div id="pure_humid" class="c100 p0">
+                        <span id="humid">'.$humid.'%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div id="pure_temp" class="c100 p0 orange">
+                        <span id="temp">'.$temp.'°C</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div id="pure_lux" class="c100 p0 yellow">
+                        <span id="lux">'.$lux.'lux</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    ';
+            }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,39 +162,10 @@
     </div>
     <div class="main" id="home_page">
         <div class="sensor-padding">
-            <div class="sensor">
 
-                <div class="square">
-                    <div id="pure_humid" class="c100 p0">
-                        <span id="humid">87%</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="square">
-                    <div id="pure_temp" class="c100 p0 orange">
-                        <span id="temp">28°C</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="square">
-                    <div id="pure_lux" class="c100 p0 yellow">
-                        <span id="lux">80lux</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <!-- echo $html_sensor -->
+            <?php echo $html_sensor; ?>
+            
         </div>
         <div class="gpio">
             
