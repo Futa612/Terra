@@ -7,17 +7,6 @@ BH1750 lightMeter;
 const int DHTPIN = 2;
 const int DHTTYPE = DHT11;
 DHT dht(DHTPIN, DHTTYPE);
-byte degree[8] = {
-  0B01110,
-  0B01010,
-  0B01110,
-  0B00000,
-  0B00000,
-  0B00000,
-  0B00000,
-  0B00000
-};
-
 void setup() {
   lcd.init();  
   lcd.backlight();
@@ -27,7 +16,6 @@ void setup() {
   lcd.print("DA:");
   lcd.setCursor(0,1);
   lcd.print("AS:");
-  lcd.createChar(1, degree);
   dht.begin();
   Serial.begin(9600);
   pinMode(13,OUTPUT);// chan 13 noi voi quat
@@ -49,7 +37,7 @@ if(Serial.available())
       tinhieu= Serial.readString();
     }
 
-if (nhan=="tdon") 
+if (tinhieu=="tdon") 
 {    
  tudong();
 } 
@@ -69,8 +57,8 @@ void hienthi(void)
   else {
     lcd.setCursor(3,0);
     lcd.print(round(t));
-    lcd.write(1);
-    lcd.print("C");
+
+    lcd.print(" C");
     lcd.setCursor(12,0);
     lcd.print(round(h));
     lcd.print("%"); 
