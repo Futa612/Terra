@@ -61,7 +61,7 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "UPDATE Outputs SET state='" . $state . "' WHERE id='". $id .  "'";
+        $sql = "UPDATE Outputs SET state='" .abs($state - 1) . "' WHERE id='". $id .  "'";
 
        if ($conn->query($sql) === TRUE) {
             return "Output state updated successfully";

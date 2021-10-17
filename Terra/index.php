@@ -1,25 +1,16 @@
-<!--
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/control-esp32-esp8266-gpios-from-anywhere/
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
--->
 <?php
 include_once('esp-database.php');
 
 $result = getAllOutputs();
 $html_buttons = null;
+$html_delete = null;
 if ($result) {
     while ($row = $result->fetch_assoc()) {
 
         if ($row["state"] == "1") {
-            $button_checked = "checked";
-        } else {
             $button_checked = "";
+        } else {
+            $button_checked = "checked";
         }
 
         $html_buttons .= '<div class="rec-padding">
