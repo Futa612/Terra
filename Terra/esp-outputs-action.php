@@ -18,6 +18,19 @@
             }
             echo $result;
         }
+        else if ($action == "output_delete") {
+            $id = test_input($_POST["id"]);
+            $board = getOutputBoardById($id);
+            if ($row = $board->fetch_assoc()) {
+                $board_id = $row["board"];
+            }
+            $result = deleteOutput($id);
+            $result2 = getAllOutputStates($board_id);
+            if(!$result2->fetch_assoc()) {
+                deleteBoard($board_id);
+            }
+            echo $result;
+        }
         else {
             echo "No data posted with HTTP POST.";
         }
