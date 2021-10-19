@@ -15,7 +15,7 @@
     // $humid = "43";
     // $lux = "54";
 
-    $sql1 = "UPDATE `sensor` SET `temp`='.$temp.',`humid`='.$humid.',`lux`='.$lux.' WHERE 1";
+    $sql1 = "UPDATE `sensor` SET `temp`='".$temp."',`humid`='".$humid."',`lux`='".$lux."' WHERE 1";
 
     $result1 = mysqli_query($connect, $sql1);
     if ($result != NULL) {

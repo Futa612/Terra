@@ -71,7 +71,34 @@
     transform: scale(1.1);
     transition: 0.5s;
 }
-
+@-webkit-keyframes my {
+    0% { color: #c5a30b; } 
+    50% { color: rgb(84,130,53);  } 
+    100% { color: #c5a30b;  } 
+}
+@-moz-keyframes my { 
+    0% { color: #c5a30b;  } 
+    50% { color: rgb(84,130,53);  }
+    100% { color: #c5a30b;  } 
+}
+@-o-keyframes my { 
+    0% { color: #c5a30b; } 
+    50% { color: rgb(84,130,53); } 
+    100% { color: #c5a30b;  } 
+}
+@keyframes my { 
+    0% { color: #c5a30b;  } 
+    50% { color: rgb(84,130,53);  }
+    100% { color: #c5a30b;  } 
+} 
+.thongbao {
+    font-size: 19px;
+    font-weight:bold;
+    -webkit-animation: my 700ms infinite;
+    -moz-animation: my 700ms infinite; 
+    -o-animation: my 700ms infinite; 
+    animation: my 700ms infinite;
+}
 /*MOBILE - 8 PLUS*/
 @media only screen and (max-width: 740px) {
     html {

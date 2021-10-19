@@ -43,7 +43,7 @@ if ($result) {
                     </div>
                     <div class="delete">
                         <button onclick="deleteOutput(this)" href="javascript:void(0);" id="' . $row["id"] . '">
-                        Delete
+                        Xoá
                         </button>
                     </div>
                 </div>
@@ -71,10 +71,11 @@ if ($result2) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">  
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="images/terra3.ico"/>
+    <title>Terra</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/pure.css">
@@ -142,7 +143,9 @@ if ($result2) {
 
     <div class="main2" id="notification_page">
 
-        <div class="thongbao">Thông báo cập nhật phiên bản beta: Terra_v101</div>
+        <div class="thongbao">Thông báo: Cập nhật phiên bản mới nhất vào ngày 18/10: Terra_v102</div><br>
+        <div class="thongbao">Thông báo: Terra đã chính thức mở cửa sever quốc tế lúc 0h ngày 18/10!!! </div><br>
+        <div class="thongbao">Thông báo: Cập nhật phiên bản beta cho tester ngày 24/9: Terra_v101</div>
         <?php echo $html_boards; ?>
 
     </div>
@@ -191,7 +194,7 @@ if ($result2) {
                     <button type="submit" value="Create Output">Tạo GPIO</button>
                 </div>
 
-                <p><strong>Chú ý:</strong> Ở một số thiết bị cần phải refresh lại trang để tải lại trạng thái của các thiết bị.</p>
+                <p><strong>Chú ý:</strong> Ở một số thiết bị cần phải refresh lại trang để làm mới thái của các thiết bị.</p>
 
             </form>
 
@@ -312,12 +315,12 @@ if ($result2) {
     }
 
     function deleteOutput(element) {
-        var result = confirm("Want to delete this output?");
+        var result = confirm("Bạn có chắc muốn xoá thiết bị này chứ? ");
         if (result) {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "esp-outputs-action.php?action=output_delete&id=" + element.id, true);
             xhr.send();
-            alert("Output deleted");
+            alert("Đã xoá thiết bị");
             setTimeout(function() {
                 window.location.reload();
             });

@@ -1,24 +1,18 @@
 <?php
     require_once("config.php");
-    $servername = HOSTNAME;
-    // Your Database name
-    $dbname = DATABASE;
-    // Your Database user
-    $username = USERNAME;
-    // Your Database user password
-    $password = PASSWORD;
+    
 
     function createOutput($name, $board, $gpio, $state) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO Outputs (name, board, gpio, state)
+        $sql = "INSERT INTO `outputs`(`name`, `board`, `gpio`, `state`) 
         VALUES ('" . $name . "', '" . $board . "', '" . $gpio . "', '" . $state . "')";
 
        if ($conn->query($sql) === TRUE) {
@@ -31,16 +25,16 @@
     }
 
     function deleteOutput($id) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "DELETE FROM Outputs WHERE id='". $id .  "'";
+        $sql = "DELETE FROM `outputs` WHERE `id` = '".$id."'";
 
        if ($conn->query($sql) === TRUE) {
             return "Output deleted successfully";
@@ -52,16 +46,16 @@
     }
 
     function updateOutput($id, $state) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "UPDATE Outputs SET state='" .abs($state - 1) . "' WHERE id='". $id .  "'";
+        $sql = "UPDATE `outputs` SET `state` ='" .abs($state - 1) . "' WHERE `id` = '". $id .  "'";
 
        if ($conn->query($sql) === TRUE) {
             return "Output state updated successfully";
@@ -73,16 +67,14 @@
     }
 
     function getAllOutputs() {
-        global $servername, $username, $password, $dbname;
-
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT id, name, board, gpio, state FROM Outputs ORDER BY board";
+        $sql = "SELECT `id`, `name`, `board`, `gpio`, `state` FROM `outputs` WHERE 1";
         if ($result = $conn->query($sql)) {
             return $result;
         }
@@ -93,16 +85,16 @@
     }
 
     function getAllOutputStates($board) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT gpio, state FROM Outputs WHERE board='" . $board . "'";
+        $sql = "SELECT `gpio`, `state` FROM outputs WHERE `board` = '" . $board . "'";
         if ($result = $conn->query($sql)) {
             return $result;
         }
@@ -113,16 +105,16 @@
     }
 
     function getOutputBoardById($id) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT board FROM Outputs WHERE id='" . $id . "'";
+        $sql = "SELECT `board` FROM	outputs WHERE `board` ='" . $id . "'";
         if ($result = $conn->query($sql)) {
             return $result;
         }
@@ -133,16 +125,16 @@
     }
 
     function updateLastBoardTime($board) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "UPDATE Boards SET last_request=now() WHERE board='". $board .  "'";
+        $sql = "SELECT `board`, last_request FROM boards ORDER BY `board`";
 
        if ($conn->query($sql) === TRUE) {
             return "Output state updated successfully";
@@ -154,16 +146,16 @@
     }
 
     function getAllBoards() {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT board, last_request FROM Boards ORDER BY board";
+        $sql = "SELECT `board`, last_request FROM boards ORDER BY `board`";
         if ($result = $conn->query($sql)) {
             return $result;
         }
@@ -174,16 +166,16 @@
     }
 
     function getBoard($board) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT board, last_request FROM Boards WHERE board='" . $board . "'";
+        $sql = "SELECT `board`, last_request FROM boards WHERE `board` ='" . $board . "'";
         if ($result = $conn->query($sql)) {
             return $result;
         }
@@ -194,16 +186,16 @@
     }
 
     function createBoard($board) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO Boards (board) VALUES ('" . $board . "')";
+        $sql = "INSERT INTO boards (`board`) VALUES ('" . $board . "')";
 
        if ($conn->query($sql) === TRUE) {
             return "New board created successfully";
@@ -215,16 +207,16 @@
     }
 
     function deleteBoard($board) {
-        global $servername, $username, $password, $dbname;
+        
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "DELETE FROM Boards WHERE board='". $board .  "'";
+        $sql = "DELETE FROM boards WHERE `board` = '". $board .  "'";
 
        if ($conn->query($sql) === TRUE) {
             return "Board deleted successfully";
