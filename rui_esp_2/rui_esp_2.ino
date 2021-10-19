@@ -1,13 +1,4 @@
-/*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/control-esp32-esp8266-gpios-from-anywhere/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-*/
+//Tham khao tu Rui
 
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
@@ -21,13 +12,13 @@ ESP8266WiFiMulti WiFiMulti;
 #include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
 
 //const char* host = "ezroom.000webhostapp.com"; //host thi bo http
-const char* host = "192.168.1.104"; //host thi bo http
+const char* host = "terraiot.000webhostapp.com"; //host thi bo http
 
 // Your IP address or domain name with URL path
-const char* serverName = "http://192.168.1.104/terra/esp-outputs-action.php?action=outputs_state&board=2";
+const char* serverName = "http://terraiot.000webhostapp.com/esp-outputs-action.php?action=outputs_state&board=2";
 
-// Update interval time set to 5 seconds
-const long interval = 1000;
+// Update interval time set to 1.5 seconds
+const long interval = 1500;
 unsigned long previousMillis = 0;
 
 String outputsState;
@@ -52,7 +43,7 @@ void loop() {
      // Check WiFi connection status
     if ((WiFiMulti.run() == WL_CONNECTED)) {
       outputsState = httpGETRequest(serverName);
-      Serial.println(outputsState);
+//      Serial.println(outputsState);
       JSONVar myObject = JSON.parse(outputsState);
   
       // JSON.typeof(jsonVar) can be used to get the type of the var
@@ -61,18 +52,18 @@ void loop() {
         return;
       }
     
-      Serial.print("JSON object = ");
-      Serial.println(myObject);
+//      Serial.print("JSON object = ");
+//      Serial.println(myObject);
     
       // myObject.keys() can be used to get an array of all the keys in the object
       JSONVar keys = myObject.keys();
     
       for (int i = 0; i < keys.length(); i++) {
         JSONVar value = myObject[keys[i]];
-        Serial.print("GPIO: ");
-        Serial.print(keys[i]);
-        Serial.print(" - SET to: ");
-        Serial.println(value);
+//        Serial.print("GPIO: ");
+//        Serial.print(keys[i]);
+//        Serial.print(" - SET to: ");
+//        Serial.println(value);
         pinMode(atoi(keys[i]), OUTPUT);
         digitalWrite(atoi(keys[i]), atoi(value));
       }
@@ -88,9 +79,9 @@ void loop() {
   humid = doam();
   lux = anhsang();
   gui_request(temp, humid, lux);
-  Serial.println(temp);
-  Serial.println(humid);
-  Serial.println(lux);
+//  Serial.println(temp);
+//  Serial.println(humid);
+//  Serial.println(lux);
 }
 
 String httpGETRequest(const char* serverName) {
@@ -106,8 +97,8 @@ String httpGETRequest(const char* serverName) {
   String payload = "{}"; 
   
   if (httpResponseCode>0) {
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
+//    Serial.print("HTTP Response code: ");
+//    Serial.println(httpResponseCode);
     payload = http.getString();
   }
   else {
@@ -142,8 +133,8 @@ void gui_request(int temp, int humid, int lux) {
   HTTPClient http;
   const int httpPort = 80; //thuong la 80 voi http
   //kiem tra ket noi
-  Serial.print("Connecting to: ");
-  Serial.println(host); 
+//  Serial.print("Connecting to: ");
+//  Serial.println(host); 
   if (!client.connect(host, httpPort)) {
     Serial.println("Connection fail!");
       return;
@@ -151,7 +142,7 @@ void gui_request(int temp, int humid, int lux) {
   
 //    Serial.println("Connection success!");
   //=============1. Gui request len PHP// Gui data len server=============
-  client.print(String("GET http://192.168.0.104/terra/sensor.php?") 
+  client.print(String("GET https://terraiot.000webhostapp.com/sensor.php?") 
                   +("&temp=") + temp
                   +("&humid=") + humid
                   +("&lux=") + lux
@@ -160,7 +151,7 @@ void gui_request(int temp, int humid, int lux) {
                   + "Connection: close\r\n\r\n");
   unsigned long current_time = millis();
   while (client.available() == 0) {
-    if (millis() - current_time > 2000) {
+    if (millis() - current_time > 6000) {
     //          Serial.print(">>> Client stop");
           client.stop();
           return;
