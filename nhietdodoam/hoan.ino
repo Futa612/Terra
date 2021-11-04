@@ -16,7 +16,10 @@ void setup() {
   lcd.print("DA:");
   lcd.setCursor(0,1);
   lcd.print("AS:");
+  lcd.setCursor(12,1);
+  lcd.print("lux");
   dht.begin();
+  lightMeter.begin();
   Serial.begin(9600);
   pinMode(13,OUTPUT);// chan 13 noi voi quat
   pinMode(12,OUTPUT) ;// chan 12 noi voi may phun suong
@@ -28,24 +31,7 @@ void loop()
 {
 hienthi() ;
 gui();
-
-if(Serial.available())
-  {
-    String tinhieu= "";
-    while(Serial.available())
-    {
-      tinhieu= Serial.readString();
-    }
-
-if (tinhieu=="tdon") 
-{    
- tudong();
-} 
-else if(tinhieu=="tdoff")
-{
-  nhan();
-}
-}
+tudong();
 }
 
 void hienthi(void)
@@ -53,7 +39,7 @@ void hienthi(void)
     float h = dht.readHumidity();
     float t = dht.readTemperature();
    float l = lightMeter.readLightLevel();
-  if (isnan(t) || isnan(h) ) { } 
+  if (isnan(t) || isnan(h)|| isnan(l) ) { } 
   else {
     lcd.setCursor(3,0);
     lcd.print(round(t));
@@ -63,8 +49,7 @@ void hienthi(void)
     lcd.print(round(h));
     lcd.print("%"); 
     lcd.setCursor(4,1); 
-    lcd.print(round(t));
-    lcd.print(" lux");
+    lcd.print(l);
 }
 }
 void tudong(void)
@@ -72,7 +57,7 @@ void tudong(void)
  float h = dht.readHumidity();
  float t = dht.readTemperature();
  float l = lightMeter.readLightLevel();
- if (t>=30 && h>=70)
+ if (t>=30 || h>=70)
  { digitalWrite(13, HIGH); }
  else 
  {digitalWrite(13,LOW);}
@@ -97,7 +82,7 @@ void gui(void)
     Serial.print(h);
     Serial.print("%");
       Serial.print(" anh sang:");
-    Serial.print(h);
+    Serial.print(l);
     Serial.print("lux");
 
 }
@@ -105,38 +90,38 @@ void nhan(void)
 {
   if(Serial.available())
   {
-    String dulieu= "";
+    char dulieu;
     while(Serial.available())
     {
-      dulieu= Serial.readString();
+      dulieu= Serial.read();
     }
 
-if (dulieu=="batquat") 
+if (dulieu=='1') 
 {    
   digitalWrite(13,HIGH); 
 } 
 else 
-if (dulieu=="batden")
+if (dulieu=='2')
  {    
    digitalWrite(11,HIGH);
 } 
 else 
-if (dulieu=="batps") 
+if (dulieu=='3') 
 {    
    digitalWrite(12,HIGH);
 } 
 else 
-if (dulieu=="tatquat") 
+if (dulieu=='4') 
 {    
    digitalWrite(13,LOW);
 } 
 else 
-if (dulieu=="tatden") 
+if (dulieu=='5') 
 {    
    digitalWrite(11,LOW);
 }
  else 
-if (dulieu=="tatps") 
+if (dulieu=='6') 
 {    
    digitalWrite(12,LOW);
 } 
