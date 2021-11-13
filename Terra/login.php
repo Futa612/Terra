@@ -1,3 +1,46 @@
+<?php
+ob_start();
+$email = $_POST['Email'];
+$password = $_POST['Password'];
+
+// $email = '2fnamhoang@gmail.com';
+// $password = '123';
+
+//TAO KET NOI DEN DATABASE
+require_once("config.php");
+$connect = new mysqli(HOSTNAME, USERNAME,PASSWORD,DATABASE ); 
+//KIEM TRA KET NOI
+if($connect->connect_error){
+    echo('Fail to connect to SQL: ').$connect->connect_error;
+    exit();
+}
+$connect-> set_charset('utf8');
+
+//THUC HIEN TRUY VAN VAO DATABASE DE LAY DU LIEU:
+$query = "SELECT * FROM account WHERE email ='".$email."' AND password = '".$password."' ";
+$result = mysqli_query($connect, $query);
+$data = array();
+while ($row = mysqli_fetch_array($result,1)) {
+    $data[] = $row;
+}
+// var_dump($data);
+//DONG KET NOI
+$connect->close();
+
+//KIEM TRA KET QUA VA THUC HIEN LOGIN
+if ($data != NULL && count($data)>0) {
+    echo "<script type='text/javascript'>
+        document.getElementById('main-login').style.transform = 'translateX(-100%)';
+        document.getElementById('main-login').style.opacity = '0%';
+    
+    </script>";
+    header('location: main.php');
+}
+else{
+    
+}
+ob_end_flush();
+?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -21,51 +64,11 @@
         <tieude style="text-align: center ;">
             Terra<i class="fas fa-leaf" id="leaff"></i>
         </tieude>
-        <div id="logreg-forms">
-            <form class="form-signin" action="login.php"  method="POST">
-                <h1 class="h3 mb-3 font-weight-normal"> Sign in</h1>
-                <!-- <div class="social-login">
-                    <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
-                    <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
-                </div> -->
-                <!-- <p style="text-align:center"> OR  </p> -->
-                <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" required="" autofocus="">
-                <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required="">
-                
-                <button class="btn btn-success btn-block" type="submit" onclick=""><i class="fas fa-sign-in-alt"></i> Sign in</button>
-                <a href="#" id="forgot_pswd" >Forgot password?</a>
-                <hr>
-                <!-- <p>Don't have an account!</p>  -->
-                <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
-                </form>
-    
-                <form action="/reset/password/" class="form-reset">
-                    <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-                    <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
-                    <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
-                </form>
-                
-            <form class="form-signup" action="reg.php" method="POST" >
-                <!-- <div class="social-login">
-                    <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
-                </div>
-                <div class="social-login">
-                    <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
-                </div> -->
-                
-                <!-- <p style="text-align:center">OR</p> -->
-
-                <input type="text" id="ma_gioi_thieu" name="magioithieu" class="form-control" placeholder="Preminum code" required="" autofocus="">
-                <input type="text" id="user-name" name="name" class="form-control" placeholder="Full name" required="" autofocus="">
-                <input type="email" id="user-email" name="email" class="form-control" placeholder="Email address" required autofocus="">
-                <input type="password" id="user-pass" name="password" class="form-control" placeholder="Password" required autofocus="">
-                <input type="password" id="user-repeatpass" name="confirm-password" class="form-control" placeholder="Confirm password" required autofocus="">
-                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-                <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
-            </form>
-                <br>
-                
+        
+        <div class="saipass">
+            <p>Password was incorrect, you can log-in again or sign-up at <a href="index.php">here</a></p>
         </div>
+
         <footer>
                 <svg viewBox="0 0 120 28">
                 <defs> 
