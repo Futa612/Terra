@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="login2.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="shortcut icon" href="images/terra3.ico"/>
-    <title>Terra</title>
+    <title style="text-align: center;">EZroom Đăng nhập/ Đăng kí</title>
 </head>
 <body>
     <div class="main-login" id="main-login">
@@ -22,7 +21,7 @@
             Terra<i class="fas fa-leaf" id="leaff"></i>
         </tieude>
         <div id="logreg-forms">
-            <form class="form-signin" action="login.php"  method="POST">
+            <form class="form-signin" action="" method="POST">
                 <h1 class="h3 mb-3 font-weight-normal"> Sign in</h1>
                 <!-- <div class="social-login">
                     <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
@@ -32,7 +31,7 @@
                 <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" required="" autofocus="">
                 <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required="">
                 
-                <button class="btn btn-success btn-block" type="submit" onclick=""><i class="fas fa-sign-in-alt"></i> Sign in</button>
+                <button class="btn btn-success btn-block" type="submit" onclick="login()"><i class="fas fa-sign-in-alt"></i> Sign in</button>
                 <a href="#" id="forgot_pswd" >Forgot password?</a>
                 <hr>
                 <!-- <p>Don't have an account!</p>  -->
@@ -114,8 +113,8 @@
     <script>
         function login(){
             // document.getElementById("main-login").style.display = "none";
-            document.getElementById("main-login").style.transform = "translateX(-100%)";
-            document.getElementById("main-login").style.opacity = "0%";
+            document.getElementById('main-login').style.transform = 'translateX(-100%)';
+            document.getElementById('main-login').style.opacity = '0%';
         }
         </script>
 
@@ -124,4 +123,3 @@
     <script src="/script.js"></script>
 </body>
 </html>
-
