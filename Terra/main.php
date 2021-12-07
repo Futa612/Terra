@@ -143,9 +143,10 @@ if ($result2) {
 
     <div class="main2" id="notification_page">
 
-        <div class="thongbao">Thông báo: Cập nhật phiên bản mới nhất vào ngày 18/10: Terra_v102</div><br>
-        <div class="thongbao">Thông báo: Terra đã chính thức mở cửa sever quốc tế lúc 0h ngày 18/10!!! </div><br>
-        <div class="thongbao">Thông báo: Cập nhật phiên bản beta cho tester ngày 24/9: Terra_v101</div>
+        <div class="thongbao">Thông báo: Cập nhật phiên bản mới nhất vào ngày 18/10/2021: Terra_v102</div><br>
+        <div class="thongbao">Thông báo: Terra đã chính thức mở cửa sever quốc tế lúc 0h ngày 18/10/2021!!! </div><br>
+        <div class="thongbao">Thông báo: Cập nhật phiên bản beta cho tester ngày 24/9/2021: Terra_v101</div><br>
+        <div class="thongbao">Thông báo: Terra chuyển host về máy chủ Việt Nam tại 123HOST.VN từ ngày 7/12/2021</div>
         <?php echo $html_boards; ?>
 
     </div>
