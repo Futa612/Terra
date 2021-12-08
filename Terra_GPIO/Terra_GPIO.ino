@@ -44,8 +44,8 @@ void loop() {
         return;
       }
 
-      if (JSON.typeof(myObject) == "NULL") {
-        Serial.println("Parsing input failed!");
+      if (JSON.stringify(myObject) == "{}") {   //sua loi Exception: 29
+        Serial.println("Exception: 29");
         return;
       }
     
