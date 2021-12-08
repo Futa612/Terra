@@ -5,25 +5,18 @@
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266WiFiMulti.h>
-#include <DHT.h>
-
-#define DHTPIN 14 //chon pin 
-#define DHTTYPE DHT11 //dht11
-
-DHT dht(DHTPIN, DHTTYPE);
 
 ESP8266WiFiMulti WiFiMulti;
 
 #include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
 
-//const char* host = "ezroom.000webhostapp.com"; //host thi bo http
 const char* host = "xemsao.com"; //host thi bo http
 
 // Your IP address or domain name with URL path
 const char* serverName = "http://xemsao.com/esp-outputs-action.php?action=outputs_state&board=1";
 
 // Update interval time set to 1 seconds
-const long interval = 5000;
+const long interval = 1000;
 unsigned long previousMillis = 0;
 
 String outputsState;
@@ -50,22 +43,28 @@ void loop() {
         Serial.println("Parsing input failed!");
         return;
       }
+
+      if (JSON.typeof(myObject) == "NULL") {
+        Serial.println("Parsing input failed!");
+        return;
+      }
     
       Serial.print("JSON object = ");
       Serial.println(myObject);
-    
+
       // myObject.keys() can be used to get an array of all the keys in the object
       JSONVar keys = myObject.keys();
-    
-      for (int i = 0; i < keys.length(); i++) {
-        JSONVar value = myObject[keys[i]];
-//        Serial.print("GPIO: ");
-//        Serial.print(keys[i]);
-//        Serial.print(" - SET to: ");
-//        Serial.println(value);
-        pinMode(atoi(keys[i]), OUTPUT);
-        digitalWrite(atoi(keys[i]), atoi(value));
+      for (int i = 0; i < keys.length(); i++) 
+      {
+      JSONVar value = myObject[keys[i]];
+      Serial.print("GPIO: ");
+      Serial.print(keys[i]);
+      Serial.print(" - SET to: ");
+      Serial.println(value);
+      pinMode(atoi(keys[i]), OUTPUT);
+      digitalWrite(atoi(keys[i]), atoi(value));
       }
+    
       // save the last HTTP GET Request
       previousMillis = currentMillis;
     }
@@ -73,7 +72,6 @@ void loop() {
       Serial.println("WiFi Disconnected");
     }
   }
-
 }
 
 String httpGETRequest(const char* serverName) {
