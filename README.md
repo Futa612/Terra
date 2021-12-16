@@ -1,5 +1,5 @@
 # TERRA
-Phần mềm terra giám sát và điều khiển hệ sinh thai nhà kính
+Phần mềm terra giám sát và điều khiển hệ sinh thái trong nhà kính
 www.xemsao.com
 Chuỗi phần cứng terra_tech
 
