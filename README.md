@@ -1,4 +1,5 @@
 # TERRA
+This is my small school project with IoT system for controlling relays, sensors.  
 Phần mềm terra giám sát và điều khiển hệ sinh thái trong nhà kính
 www.xemsao.com
 Chuỗi phần cứng terra_tech
