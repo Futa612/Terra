@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 05, 2021 at 08:29 AM
--- Server version: 10.5.12-MariaDB
+-- Generation Time: Mar 24, 2022 at 02:59 PM
+-- Server version: 5.7.33-cll-lve
 -- PHP Version: 7.3.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `id18066344_terra`
+-- Database: `rpejkmqn_terra`
 --
 
 -- --------------------------------------------------------
@@ -40,7 +40,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`ID`, `name`, `email`, `password`) VALUES
-(2, 'Dat Nguyen', '2fnamhoang@gmail.com', '123');
+(2, 'Dat Nguyen', '2fnamhoang@gmail.com', '123'),
+(3, 'Dat Nguyen', 'admin@gmail.com', 'admin');
 
 -- --------------------------------------------------------
 
@@ -51,7 +52,7 @@ INSERT INTO `account` (`ID`, `name`, `email`, `password`) VALUES
 CREATE TABLE `boards` (
   `id` int(6) UNSIGNED NOT NULL,
   `board` int(6) DEFAULT NULL,
-  `last_request` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `last_request` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -59,7 +60,8 @@ CREATE TABLE `boards` (
 --
 
 INSERT INTO `boards` (`id`, `board`, `last_request`) VALUES
-(2, 2, '2021-10-16 05:07:50');
+(2, 2, '2021-10-16 05:07:50'),
+(11, 1, '2022-03-03 11:53:04');
 
 -- --------------------------------------------------------
 
@@ -80,11 +82,7 @@ CREATE TABLE `outputs` (
 --
 
 INSERT INTO `outputs` (`id`, `name`, `board`, `gpio`, `state`) VALUES
-(47, 'Đèn thử', 2, 2, 0),
-(48, 'Đèn chiếu sáng 1', 2, 16, 0),
-(49, 'Đèn chiếu sáng 2', 2, 5, 0),
-(52, 'Bơm phun sương tạo ẩm', 2, 4, 1),
-(53, 'Quạt thông gió', 2, 0, 1);
+(54, 'MÃ¡y phun sÆ°Æ¡ng', 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -96,15 +94,18 @@ CREATE TABLE `sensor` (
   `id` int(11) NOT NULL,
   `temp` int(55) NOT NULL,
   `humid` int(55) NOT NULL,
-  `lux` int(55) NOT NULL
+  `lux` int(55) NOT NULL,
+  `maskedNum` int(11) NOT NULL,
+  `unMaskedNum` int(11) NOT NULL,
+  `mode` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `sensor`
 --
 
-INSERT INTO `sensor` (`id`, `temp`, `humid`, `lux`) VALUES
-(1, 27, 86, 91);
+INSERT INTO `sensor` (`id`, `temp`, `humid`, `lux`, `maskedNum`, `unMaskedNum`, `mode`) VALUES
+(1, 27, 65, 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -142,19 +143,19 @@ ALTER TABLE `sensor`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `outputs`
 --
 ALTER TABLE `outputs`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `sensor`
