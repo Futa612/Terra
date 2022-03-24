@@ -65,7 +65,7 @@ void gui_request(float lux) {
   
 //    Serial.println("Connection success!");
   //=============1. Gui request len PHP// Gui data len server=============
-  client.print(String("GET https://xemsao.com/sensor.php?") 
+  client.print(String("GET https://xemsao.com/sensorLux.php?") 
                   +("&lux=") + lux
                   + " HTTP/1.1\r\n"
                   + "Host: " + host + "\r\n"
