@@ -1,0 +1,6 @@
+1: Cam Bien Anh Sang BH1750
+ https://github.com/claws/BH1750
+2: Cam Bien Nhiet Do, Do Am DTH11
+ https://github.com/adafruit/DHT-sensor-library
+3: Cam Bien Do Am Dat( analogRead )
+https://github.com/arduino/Arduino/blob/ide-1.5.x/hardware/arduino/avr/cores/arduino/wiring_analog.c
