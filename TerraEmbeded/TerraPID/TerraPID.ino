@@ -30,7 +30,7 @@ void loop()
   myPid();
   unsigned long currentMillis = millis();
   soil = getSoil();
-  sendRequestLux(soil);
+  sendRequestSoil(soil);
 }
 float getSoil() {
   adc = analogRead(A0);
@@ -46,7 +46,7 @@ void myPid(void)
   myPID.Compute();
   analogWrite(D1, Output);
 }
-void sendRequestLux(float soil) {
+void sendRequestSoil(float soil) {
   //1. TCP connection
   WiFiClient client;
   HTTPClient http;
