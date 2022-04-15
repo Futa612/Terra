@@ -23,14 +23,15 @@ float getSoil();
 
 void loop()
 {
-  myPid();
   unsigned long currentMillis = millis();
+  myPid();
   soil = getSoil();
   sendRequestSoil(soil);
 }
 
 void setup()
 {
+  //Setup PID
   pinMode(A0, INPUT );
   pinMode(D1, OUTPUT );
   Serial.begin(115200);
@@ -38,6 +39,13 @@ void setup()
   Input = map(adc, 0, 1023, 100, 0);
   Setpoint = 75;
   myPID.SetMode(AUTOMATIC);
+
+  //Setup WifiCliet
+  Wire.begin();
+  Serial.begin(115200);
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("Terra");
+  Serial.println("Connected.");
 }
 
 float getSoil() {
