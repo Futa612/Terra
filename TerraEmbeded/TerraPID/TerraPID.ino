@@ -15,6 +15,20 @@ float soil;
 double Setpoint, Input, Output;
 double Kp = 5, Ki = 1.5, Kd = 0.35;
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+
+void setup();
+void sendRequestSoil(float soil);
+void myPid(void);
+float getSoil();
+
+void loop()
+{
+  myPid();
+  unsigned long currentMillis = millis();
+  soil = getSoil();
+  sendRequestSoil(soil);
+}
+
 void setup()
 {
   pinMode(A0, INPUT );
@@ -33,13 +47,14 @@ float getSoil() {
   Serial.println(soil);
   return soil;
 }
-void myPid(void)
+void myPid()
 {
   adc = analogRead(A0);
   Input = map(adc, 0, 1023, 100, 0);
   myPID.Compute();
   analogWrite(D1, Output);
 }
+
 void sendRequestSoil(float soil) {
   //1. TCP connection
   WiFiClient client;
@@ -70,11 +85,4 @@ void sendRequestSoil(float soil) {
       return;
     }
   }
-}
-void loop()
-{
-  myPid();
-  unsigned long currentMillis = millis();
-  soil = getSoil();
-  sendRequestSoil(soil);
 }
