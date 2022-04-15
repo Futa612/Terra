@@ -25,13 +25,7 @@ void setup()
   Setpoint = 75;
   myPID.SetMode(AUTOMATIC);
 }
-void loop()
-{
-  myPid();
-  unsigned long currentMillis = millis();
-  soil = getSoil();
-  sendRequestSoil(soil);
-}
+
 float getSoil() {
   adc = analogRead(A0);
   float soil = map(adc, 0, 1023, 100, 0);
@@ -76,4 +70,11 @@ void sendRequestSoil(float soil) {
       return;
     }
   }
+}
+void loop()
+{
+  myPid();
+  unsigned long currentMillis = millis();
+  soil = getSoil();
+  sendRequestSoil(soil);
 }
