@@ -81,7 +81,7 @@ void sendRequestSoil(float soil) {
   }
 
   //Send request to the sever
-  client.print(String("GET https://xemsao.com/sensorLux.php?")
+  client.print(String("GET https://xemsao.com/sensorSoil.php?")
                + ("&lux=") + soil
                + " HTTP/1.1\r\n"
                + "Host: " + host + "\r\n"
