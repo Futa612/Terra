@@ -217,10 +217,10 @@ if ($result2) {
     <div class="main5" id="terra_page">
 
         <br>
-        <div class="gpio">
+        <div class="gpio2">
             <div class="rec">
                 <div class="content">
-                    <p id="name">Terra mode</p>
+                    <p id="name">PID Pump</p>
                     <div class="detail-content">
                         <p></p>
                         <p></p>
@@ -234,7 +234,19 @@ if ($result2) {
                 </label>
             </div>
         </div>
-
+        
+        <div class="sensor-padding">
+            <div class="square">
+                <div id="pure_soil" class="c100 p0 green">
+                    <span id="lux">0%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <br>
 
 
@@ -366,6 +378,9 @@ if ($result2) {
             });
 
             $('#pure_lux').load('lux.php #pure_lux', function() {
+                /// can add another function here
+            });
+            $('#pure_soil').load('soil.php #pure_soil', function() {
                 /// can add another function here
             });
         }

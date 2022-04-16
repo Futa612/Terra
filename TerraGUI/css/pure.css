@@ -956,6 +956,7 @@
 .c100.yellow.dark:hover > span {
   color: #dada00;
 }
+
 .c100.orange .bar,
 .c100.orange .fill {
   border-color: #dd9d22 !important;
@@ -970,6 +971,22 @@
 .c100.orange.dark:hover > span {
   color: #e08833;
 }
+
+.c100.green .bar,
+.c100.green .fill {
+  border-color: #39c421 !important;
+}
+.c100.green:hover > span {
+  color: #39c421;
+}
+.c100.green.dark .bar,
+.c100.green.dark .fill {
+  border-color: #39c421 !important;
+}
+.c100.green.dark:hover > span {
+  color: #39c421;
+}
+
 @media only screen and (max-width: 740px) {
   .c100 {
     font-size: 100px;

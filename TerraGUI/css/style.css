@@ -262,6 +262,16 @@
         padding: 10px;
     
     }
+    
+    .gpio2 {
+        height: 30%;
+        width: calc(100%-20px);
+        display: block;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+    
+    }
     .rec-padding {
         height: 90px;
         width: calc(100%);

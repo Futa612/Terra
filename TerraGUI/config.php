@@ -1,9 +1,9 @@
  <?php
 //Cau hinh data base
 define('HOSTNAME', "localhost");
-define('USERNAME', "rpejkmqn_futa");
-define('PASSWORD', "Nguyenphudath2o");
-define('DATABASE', "rpejkmqn_terra");
+define('USERNAME', "xemsaoco_futa");
+define('PASSWORD', "Nguyenphudath2o@@");
+define('DATABASE', "xemsaoco_terra");
 
 // define('HOSTNAME', "localhost");
 // define('USERNAME', "root");
