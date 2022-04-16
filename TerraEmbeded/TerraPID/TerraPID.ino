@@ -10,34 +10,29 @@
 #include <WiFiManager.h>
 ESP8266WiFiMulti WiFiMulti;
 const char* host = "xemsao.com";
-float adc;
-float soil;
-double Setpoint, Input, Output;
-double Kp = 5, Ki = 1.5, Kd = 0.35;
-PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+float gAdc;
+float gSoil;
+double* gSetpoint;
+double* gInput;
+double* gOutput;
+double gKp = 5, gKi = 1.5, gKd = 0.35;
 
-void setup();
+//Constructor
+PID myPID(gInput, gOutput, gSetpoint, gKp, gKi, gKd, DIRECT);
+
 void sendRequestSoil(float soil);
-void myPid(void);
+void myPid(float soil);
 float getSoil();
-
-void loop()
-{
-  unsigned long currentMillis = millis();
-  myPid();
-  soil = getSoil();
-  sendRequestSoil(soil);
-}
 
 void setup()
 {
-  //Setup PID
+  //Setup PID, ANALOG
   pinMode(A0, INPUT );
   pinMode(D1, OUTPUT );
   Serial.begin(115200);
-  adc = analogRead(A0);
-  Input = map(adc, 0, 1023, 100, 0);
-  Setpoint = 75;
+  gAdc = analogRead(A0);
+  *gInput = map(gAdc, 0, 1023, 100, 0);
+  *gSetpoint = 75;
   myPID.SetMode(AUTOMATIC);
 
   //Setup WifiCliet
@@ -48,19 +43,27 @@ void setup()
   Serial.println("Connected.");
 }
 
-float getSoil() {
-  adc = analogRead(A0);
-  float soil = map(adc, 0, 1023, 100, 0);
-  Serial.print("Soil: ");
-  Serial.println(soil);
-  return soil;
-}
-void myPid()
+void loop()
 {
-  adc = analogRead(A0);
-  Input = map(adc, 0, 1023, 100, 0);
+  unsigned long currentMillis = millis();
+  gSoil = getSoil();
+  myPid(gSoil);
+  sendRequestSoil(gSoil);
+}
+
+float getSoil() {
+  gAdc = analogRead(A0);
+  gSoil = map(gAdc, 0, 1023, 100, 0);
+  Serial.print("Soil: ");
+  Serial.println(gSoil);
+  return gSoil;
+}
+
+void myPid(float soil)
+{
+  *gInput = soil;
   myPID.Compute();
-  analogWrite(D1, Output);
+  analogWrite(D1, *gOutput);
 }
 
 void sendRequestSoil(float soil) {
