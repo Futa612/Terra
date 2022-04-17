@@ -24,6 +24,13 @@ void setup()
   Input = map(adc, 0, 1023, 100, 0);
   Setpoint = 75;
   myPID.SetMode(AUTOMATIC);
+
+  //Setup wifi
+  Wire.begin();
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("Terra");
+  Serial.println("Connected.");
+  lightMeter.begin();
 }
 
 float getSoil() {
