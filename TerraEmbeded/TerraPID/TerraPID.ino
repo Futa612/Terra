@@ -47,7 +47,7 @@ void loop()
   unsigned long currentMillis = millis();
   gSoil = getSoil();
   myPid(gSoil);
-  sendRequestSoil(gSoil);
+//  sendRequestSoil(gSoil);
 }
 
 float getSoil() {
