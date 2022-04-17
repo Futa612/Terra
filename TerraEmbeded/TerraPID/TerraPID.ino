@@ -30,7 +30,6 @@ void setup()
   WiFiManager wifiManager;
   wifiManager.autoConnect("Terra");
   Serial.println("Connected.");
-  lightMeter.begin();
 }
 
 float getSoil() {
