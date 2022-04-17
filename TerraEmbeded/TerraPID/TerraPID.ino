@@ -66,7 +66,8 @@ void sendRequestSoil(float soil) {
                + " HTTP/1.1\r\n"
                + "Host: " + host + "\r\n"
                + "Connection: close\r\n\r\n");
-
+  Serial.println("Send: ");
+  Serial.println(soil);
   unsigned long current_time = millis();
 
   while (client.available() == 0) {
