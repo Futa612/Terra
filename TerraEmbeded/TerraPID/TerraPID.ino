@@ -71,7 +71,7 @@ void sendRequestSoil(float soil) {
   unsigned long current_time = millis();
 
   while (client.available() == 0) {
-    if (millis() - current_time > 6000) {
+    if (millis() - current_time > 1000) {
       Serial.print(">>> Client stop");
       client.stop();
       return;
