@@ -1,4 +1,4 @@
-aays#include <PID_v1.h>
+#include <PID_v1.h>
 #include <Wire.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
@@ -10,61 +10,36 @@ aays#include <PID_v1.h>
 #include <WiFiManager.h>
 ESP8266WiFiMulti WiFiMulti;
 const char* host = "xemsao.com";
-float gAdc;
-float gSoil;
-double* gSetpoint;
-double* gInput;
-double* gOutput;
-double gKp = 5, gKi = 1.5, gKd = 0.35;
-
-//Constructor
-PID myPID(gInput, gOutput, gSetpoint, gKp, gKi, gKd, DIRECT);
-
-void sendRequestSoil(float soil);
-void myPid(float soil);
-float getSoil();
-
+float adc;
+float soil;
+double Setpoint, Input, Output;
+double Kp = 5, Ki = 1.5, Kd = 0.35;
+PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 void setup()
 {
-  //Setup PID, ANALOG
   pinMode(A0, INPUT );
   pinMode(D1, OUTPUT );
   Serial.begin(115200);
-  gAdc = analogRead(A0);
-  *gInput = map(gAdc, 0, 1023, 100, 0);
-  *gSetpoint = 75;
+  adc = analogRead(A0);
+  Input = map(adc, 0, 1023, 100, 0);
+  Setpoint = 75;
   myPID.SetMode(AUTOMATIC);
-
-  //Setup WifiCliet
-//  Wire.begin();
-//  WiFiManager wifiManager;
-//  wifiManager.autoConnect("Terra");
-//  Serial.println("Connected.");
-}
-
-void loop()
-{
-  unsigned long currentMillis = millis();
-  gSoil = getSoil();
-  myPid(gSoil);
-//  sendRequestSoil(gSoil);
 }
 
 float getSoil() {
-  gAdc = analogRead(A0);
-  gSoil = map(gAdc, 0, 1023, 100, 0);
+  adc = analogRead(A0);
+  float soil = map(adc, 0, 1023, 100, 0);
   Serial.print("Soil: ");
-  Serial.println(gSoil);
-  return gSoil;
+  Serial.println(soil);
+  return soil;
 }
-
-void myPid(float soil)
+void myPid(void)
 {
-  *gInput = soil;
+  adc = analogRead(A0);
+  Input = map(adc, 0, 1023, 100, 0);
   myPID.Compute();
-  analogWrite(D1, *gOutput);
+  analogWrite(D1, Output);
 }
-
 void sendRequestSoil(float soil) {
   //1. TCP connection
   WiFiClient client;
@@ -95,4 +70,11 @@ void sendRequestSoil(float soil) {
       return;
     }
   }
+}
+void loop()
+{
+  myPid();
+  unsigned long currentMillis = millis();
+  soil = getSoil();
+  sendRequestSoil(soil);
 }
