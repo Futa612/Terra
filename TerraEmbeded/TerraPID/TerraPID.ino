@@ -1,4 +1,4 @@
-#include <PID_v1.h>
+aays#include <PID_v1.h>
 #include <Wire.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
@@ -36,11 +36,10 @@ void setup()
   myPID.SetMode(AUTOMATIC);
 
   //Setup WifiCliet
-  Wire.begin();
-  Serial.begin(115200);
-  WiFiManager wifiManager;
-  wifiManager.autoConnect("Terra");
-  Serial.println("Connected.");
+//  Wire.begin();
+//  WiFiManager wifiManager;
+//  wifiManager.autoConnect("Terra");
+//  Serial.println("Connected.");
 }
 
 void loop()
