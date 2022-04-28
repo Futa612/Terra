@@ -129,14 +129,14 @@ def warning():
         # Someone is infront of camera
         if get_yolo_preds.lenbbox > 0:
 
-            # All people are wearing mask
+            # There is 1 people or more than one who not wearing mask
             if get_yolo_preds.checkid == 1:
                 pygame.mixer.init()
                 pygame.mixer.music.load(random.choice(warning))
                 pygame.mixer.music.play()
 
                 # Control data: Add the number of masked people
-                maskedNum = maskedNum + get_yolo_preds.lenbbox
+                unMaskedNum = unMaskedNum + get_yolo_preds.lenbbox
 
                 # Send http request to website
                 payload = {'maskedNum' : str(maskedNum), 'unMaskedNum' : str(unMaskedNum)}
@@ -146,15 +146,15 @@ def warning():
                 while pygame.mixer.music.get_busy() == True:
                     continue
 
-            # There is 1 people or more than one who not wearing mask        
+            # All people are wearing mask        
             if get_yolo_preds.checkid == 0:
                 timeCountDown = timeCountDown + 1
 
-                if timeCountDown == 50:
+                if timeCountDown == 30:
                     timeCountDown = 0
 
                     # Control data: Add the number of masked people
-                    unMaskedNum = unMaskedNum + 1
+                    maskedNum = maskedNum + 1
 
                     # Send http request to website
                     payload = {'maskedNum' : str(maskedNum), 'unMaskedNum' : str(unMaskedNum)}
